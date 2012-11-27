@@ -13,9 +13,9 @@ public class calculatorTest {
 
     @Test
     public void should1MeterAdd1MeterIs2Meter() {
-        Meter oneMeter = new Meter(1);
-        Meter twoMeter = new Meter(2);
-        assertThat(oneMeter.add(oneMeter), is(twoMeter));
+        Length oneMeter = new Length(1.0, LengthUnit.Meter);
+        Length twoMeter = new Length(2.0, LengthUnit.Meter);
+        assertThat(oneMeter.plus(oneMeter), is(twoMeter));
     }
 
     @Test
