@@ -4,19 +4,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class calculatorTest {
-    @Test
-    public void should1MeterEquals1Meter(){
-        Meter oneMeter = new Meter(1);
-        Meter anotherOneMeter = new Meter(1);
-        assertThat(oneMeter, is(anotherOneMeter));
-    }
-
-    @Test
-    public void should1MeterEquals100Centimeter() throws Exception {
-        Meter oneMeter = new Meter(1);
-        Centimeter oneHundredCentimeter = new Centimeter(100);
-        assertThat(oneMeter.toCentimeter(), is(oneHundredCentimeter));
-    }
 
     @Test
     public void should1MeterAdd1MeterIs2Meter() {
@@ -63,6 +50,18 @@ public class calculatorTest {
         Length fiftyMillimeter = new Length(50.0, LengthUnit.Millimeter);
         Length zeroDotFiveMeter = new Length(0.5, LengthUnit.Meter);
         assertThat(oneMeter.divide(4).plus(tenCentimeter.times(3)).minus(fiftyMillimeter),is(zeroDotFiveMeter));
+
+    }
+
+    //1m/4+10cm*3-50mm=250+300-50=50cm
+    @Test
+    public void shouldCalculateEquationReturnCorrectLengthWithCentimeterUnit() {
+        Length oneMeter = new Length(1.0, LengthUnit.Meter);
+        Length tenCentimeter = new Length(10.0, LengthUnit.Centimeter);
+        Length fiftyMillimeter = new Length(50.0, LengthUnit.Millimeter);
+        Length fiftyCentimeter = new Length(50.0, LengthUnit.Centimeter);
+
+        assertThat(oneMeter.divide(4).plus(tenCentimeter.times(3)).minus(fiftyMillimeter).convertToSpecialUnit(LengthUnit.Centimeter),is(fiftyCentimeter));
 
     }
 }

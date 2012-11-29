@@ -2,11 +2,6 @@ public class Length {
     private double value;
     private LengthUnit unit;
 
-//    public Length(int value, String unit) {
-//        this.value = value;
-//        this.unit = unit;
-//    }
-
     public Length(double value, LengthUnit unit) {
         this.value = value;
         this.unit = unit;
@@ -14,6 +9,13 @@ public class Length {
 
     private Double toBaseUnit(){
         return unit.convertValueAsBaseUnit(value);
+    }
+
+    public Length convertToSpecialUnit(LengthUnit specialUnit) {
+        double valueAsBaseUnit = this.toBaseUnit();
+        double resultValue = convertFromBaseUnit(valueAsBaseUnit, specialUnit);
+        return new Length(resultValue, specialUnit);
+
     }
 
     private double convertFromBaseUnit(double value, LengthUnit unit) {
@@ -24,6 +26,22 @@ public class Length {
         double sum = this.toBaseUnit() + anotherLength.toBaseUnit();
         double resultValue = this.convertFromBaseUnit(sum, this.unit);
         return new Length(resultValue, this.unit);
+    }
+
+    public Length minus(Length anotherLength) {
+        double difference = this.toBaseUnit() - anotherLength.toBaseUnit();
+        double resultValue = this.convertFromBaseUnit(difference, this.unit);
+        return new Length(resultValue, this.unit);
+    }
+
+    public Length times(int multiplier) {
+        double product = this.value * multiplier;
+        return new Length(product, this.unit);
+    }
+
+    public Length divide(int divisor) {
+        double quotient = this.value / divisor;
+        return new Length(quotient, this.unit);
     }
 
     @Override
@@ -56,21 +74,5 @@ public class Length {
                 ", valueAsBaseUnit=" + this.toBaseUnit() +
                 ", BaseUnit is Millimeter" +
                 '}';
-    }
-
-    public Length minus(Length anotherLength) {
-        double difference = this.toBaseUnit() - anotherLength.toBaseUnit();
-        double resultValue = this.convertFromBaseUnit(difference, this.unit);
-        return new Length(resultValue, this.unit);
-    }
-
-    public Length times(int multiplier) {
-        double product = this.value * multiplier;
-        return new Length(product, this.unit);
-    }
-
-    public Length divide(int divisor) {
-        double quotient = this.value / divisor;
-        return new Length(quotient, this.unit);
     }
 }
