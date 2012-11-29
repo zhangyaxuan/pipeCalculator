@@ -57,4 +57,20 @@ public class Length {
                 ", BaseUnit is Millimeter" +
                 '}';
     }
+
+    public Length minus(Length anotherLength) {
+        double difference = this.toBaseUnit() - anotherLength.toBaseUnit();
+        double resultValue = this.convertFromBaseUnit(difference, this.unit);
+        return new Length(resultValue, this.unit);
+    }
+
+    public Length times(int multiplier) {
+        double product = this.value * multiplier;
+        return new Length(product, this.unit);
+    }
+
+    public Length divide(int divisor) {
+        double quotient = this.value / divisor;
+        return new Length(quotient, this.unit);
+    }
 }
