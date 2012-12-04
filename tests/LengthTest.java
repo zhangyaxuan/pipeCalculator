@@ -34,6 +34,7 @@ public class LengthTest {
         assertThat(oneCentimeter.convertToSpecialUnit(LengthUnit.Meter), is(zeroDotZeroOneMeter));
     }
 
+
     @Test
     public void shouldGive2MillimeterReturn0Dot2Centimeter() {
         Length zeroDotTwoCentimeter = new Length(0.2, LengthUnit.Centimeter);

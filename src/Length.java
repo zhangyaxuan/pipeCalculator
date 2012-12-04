@@ -7,30 +7,20 @@ public class Length {
         this.unit = unit;
     }
 
-    private Double toBaseUnit(){
-        return unit.convertValueAsBaseUnit(value);
-    }
-
     public Length convertToSpecialUnit(LengthUnit specialUnit) {
-        double valueAsBaseUnit = this.toBaseUnit();
-        double resultValue = convertFromBaseUnit(valueAsBaseUnit, specialUnit);
-        return new Length(resultValue, specialUnit);
+        return new Length(specialUnit.getValueBySpecialUnit(value, unit), specialUnit);
 
-    }
-
-    private double convertFromBaseUnit(double value, LengthUnit unit) {
-        return unit.convertFromBaseUnit(value);
     }
 
     public Length plus(Length anotherLength) {
-        double sum = this.toBaseUnit() + anotherLength.toBaseUnit();
-        double resultValue = this.convertFromBaseUnit(sum, this.unit);
+        double sum = unit.convertValueAsBaseUnit(value) + anotherLength.unit.convertValueAsBaseUnit(anotherLength.value);
+        double resultValue = unit.convertFromBaseUnit(sum);
         return new Length(resultValue, this.unit);
     }
 
     public Length minus(Length anotherLength) {
-        double difference = this.toBaseUnit() - anotherLength.toBaseUnit();
-        double resultValue = this.convertFromBaseUnit(difference, this.unit);
+        double difference = unit.convertValueAsBaseUnit(value) - anotherLength.unit.convertValueAsBaseUnit(anotherLength.value);
+        double resultValue = unit.convertFromBaseUnit(difference);
         return new Length(resultValue, this.unit);
     }
 
@@ -51,7 +41,7 @@ public class Length {
 
         Length length = (Length) o;
 
-        if (Double.compare(length.toBaseUnit(), this.toBaseUnit()) != 0) return false;
+        if (Double.compare(length.unit.convertValueAsBaseUnit(length.value), unit.convertValueAsBaseUnit(value)) != 0) return false;
 
         return true;
     }
@@ -71,7 +61,7 @@ public class Length {
         return "Length{" +
                 "value=" + this.value +
                 ", unit=" + unit +
-                ", valueAsBaseUnit=" + this.toBaseUnit() +
+                ", valueAsBaseUnit=" + unit.convertValueAsBaseUnit(value) +
                 ", BaseUnit is Millimeter" +
                 '}';
     }

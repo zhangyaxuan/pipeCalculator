@@ -15,4 +15,9 @@ public enum LengthUnit {
     public double convertFromBaseUnit(double value) {
         return value/weight;
     }
+
+    public double getValueBySpecialUnit(double value, LengthUnit unit) {
+        double valueAsBaseUnit = unit.convertValueAsBaseUnit(value);
+        return convertFromBaseUnit(valueAsBaseUnit);
+    }
 }
